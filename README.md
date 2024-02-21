@@ -24,7 +24,17 @@ meta git update
 
 ## Ok, hva nå?
 
-Kommer mer her
+Endel av dette krever et kjørende docker / docker-compose miljø.
+
+### Bygg gradle prosjekter:
+```bash
+scripts/gradleBuild.sh
+```
+
+### Bygg bun/next prosjekter:
+```bash
+scripts/bunBuild.sh
+```
 
 # Henvendelser
 

@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
-SCRIPTDIR=$(pwd)
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+HUB_DIR=$( dirname "$SCRIPT_DIR")
 PROJECTS=("lydia-api" "fia-arbeidsgiver")
+
 for project in ${PROJECTS[@]}; do
-  cd "$SCRIPTDIR"
-  cd "../$project"
   echo ""
   echo "----------- $project -------------"
   echo ""
+   cd "$HUB_DIR/$project"
   ./gradlew clean shadowJar -x test
 done
