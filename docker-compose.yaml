@@ -126,7 +126,7 @@ services:
   fia-backend:
     container_name: fia-backend
     build:
-      context: ../lydia-api
+      context: lydia-api
 
     depends_on:
       - fia-database
@@ -196,9 +196,8 @@ services:
   fia-frontend:
     container_name: fia-frontend
     build:
-      context: ../../lydia-radgiver-frontend/server
-      dockerfile: ../../lydia-radgiver-frontend/server/Dockerfile.dev
-
+      context: lydia-radgiver-frontend/server
+      dockerfile: Dockerfile.dev
     depends_on:
       - fia-backend
       - redis
@@ -230,7 +229,7 @@ services:
   fia-arbeidsgiver:
     container_name: fia-arbeidsgiver
     build:
-      context: ../fia-arbeidsgiver
+      context: fia-arbeidsgiver
     depends_on:
       - redis
       - authserver
@@ -269,7 +268,7 @@ services:
   fia-arbeidsgiver-frontend:
     container_name: fia-arbeidsgiver-frontend
     build:
-      context: ../fia-arbeidsgiver-frontend
+      context: fia-arbeidsgiver-frontend
     depends_on:
       - fia-arbeidsgiver
     ports:
