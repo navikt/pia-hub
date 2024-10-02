@@ -13,6 +13,6 @@ for folder in ${FOLDERS[@]}; do
       echo "  Python $version"
     done
   else
-    echo "$folder: Dockerfile not found"
+    echo "$folder: Dockerfile ikke funnet"
   fi
 done
