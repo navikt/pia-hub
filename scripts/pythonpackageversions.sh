@@ -15,7 +15,7 @@ for folder in ${FOLDERS[@]}; do
     pip install -r "$REQUIREMENTS_FILE" > /dev/null 2>&1
     echo " requirements.txt installert.."
     echo ""
-    echo "Utdaterte pakker:"trivy
+    echo "Utdaterte pakker:"
     echo ""
 
     new_requirements=""
