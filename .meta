@@ -17,6 +17,7 @@
     "pia-bigquery-sink": "git@github.com:navikt/pia-bigquery-sink.git",
     "fia-datafortelling": "git@github.com:navikt/fia-datafortelling.git",
     "eslint-config-teamia": "git@github.com:navikt/eslint-config-teamia.git",
-    "pia-jobbsender": "git@github.com:navikt/pia-jobbsender.git"
+    "pia-jobbsender": "git@github.com:navikt/pia-jobbsender.git",
+    "pia-dvh-import": "git@github.com:navikt/pia-dvh-import.git"
   }
 }
