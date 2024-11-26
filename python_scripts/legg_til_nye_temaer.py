@@ -1,25 +1,22 @@
 from typing import Literal
 
-from models.Tema import Tema
 from models.Spørsmål import Spørsmål
+from models.Tema import Tema
 from models.Undertema import Undertema
-from util.sql_eksport import (
-    gjør_tema_inaktivt,
-    gjør_undertema_inaktivt,
-    knytt_spørsmål_til_tema,
-    knytt_spørsmål_til_undertema,
-    nytt_spørsmål,
-    nytt_svaralternativ,
-    nytt_tema,
-    nytt_undertema,
-)
+from sql.insert_spørsmål import insert_spørsmål
+from sql.insert_spørsmål_tema_relasjon import insert_spørsmål_tema_relasjon
+from sql.insert_spørsmål_undertema_relasjon import insert_spørsmål_undertema_relasjon
+from sql.insert_svaralternativ import insert_svaralternativ
+from sql.insert_tema import insert_tema
+from sql.insert_undertema import insert_undertema
+from sql.update_tema_status import update_tema_status
+from sql.update_undertema_status import update_undertema_status
 
 #### Partssamarbeid ####
 
 
 forrige_tema_id = 15
 undertema_id = 15
-spørreundersøkelse_type: Literal["Behovsvurdering", "Evaluering"] = "Evaluering"
 
 undertema_id += 1
 utvikle_partssamarbeidet = Undertema(
@@ -44,6 +41,7 @@ utvikle_partssamarbeidet = Undertema(
         ),
     ],
 )
+
 
 undertema_id += 1
 veien_videre_partssamarbeid = Undertema(
@@ -266,7 +264,6 @@ forrige_tema_id += 1
 partssamarbeid = Tema(
     id=forrige_tema_id,
     navn="Partssamarbeid",
-    type=spørreundersøkelse_type,
     undertemaer=[utvikle_partssamarbeidet, veien_videre_partssamarbeid],
 )
 
@@ -276,7 +273,6 @@ forrige_tema_id += 1
 sykefraværsarbeid = Tema(
     id=forrige_tema_id,
     navn="Sykefraværsarbeid",
-    type=spørreundersøkelse_type,
     undertemaer=[
         sykefraværsrutiner,
         oppfølgingssamtaler,
@@ -291,7 +287,6 @@ forrige_tema_id += 1
 arbeidsmiljø = Tema(
     id=forrige_tema_id,
     navn="Arbeidsmiljø",
-    type=spørreundersøkelse_type,
     undertemaer=[
         utvikle_arbeidsmiljøet,
         endring_og_omstilling,
@@ -304,21 +299,36 @@ arbeidsmiljø = Tema(
 )
 
 if __name__ == "__main__":
+    spørreundersøkelse_type: Literal["Behovsvurdering", "Evaluering"] = "Evaluering"
+
     sql_script = ""
-    sql_script += gjør_tema_inaktivt(temaId=7) + "\n"
-    sql_script += gjør_undertema_inaktivt(undertema_id=7) + "\n"
-    sql_script += gjør_tema_inaktivt(temaId=8) + "\n"
-    sql_script += gjør_undertema_inaktivt(undertema_id=8) + "\n"
-    sql_script += gjør_tema_inaktivt(temaId=9) + "\n"
-    sql_script += gjør_undertema_inaktivt(undertema_id=9) + "\n"
+    sql_script += update_tema_status(tema_id=7) + "\n"
+    sql_script += update_undertema_status(undertema_id=7) + "\n"
+    sql_script += update_tema_status(tema_id=8) + "\n"
+    sql_script += update_undertema_status(undertema_id=8) + "\n"
+    sql_script += update_tema_status(tema_id=9) + "\n"
+    sql_script += update_undertema_status(undertema_id=9) + "\n"
 
     for tema_nr, tema in enumerate([partssamarbeid, sykefraværsarbeid, arbeidsmiljø]):
-        sql_script += nytt_tema(tema=tema, rekkefølge=tema_nr + 1) + "\n"
+        sql_script += (
+            insert_tema(
+                temanavn=tema.navn,
+                tema_id=tema.id,
+                spørreundersøkelse_type=spørreundersøkelse_type,
+                rekkefølge=tema_nr + 1,
+            )
+            + "\n"
+        )
 
         for undertema_nr, undertema in enumerate(tema.undertemaer):
             sql_script += (
-                nytt_undertema(
-                    undertema=undertema, tema=tema, rekkefølge=undertema_nr + 1
+                insert_undertema(
+                    undertema_id=undertema.id,
+                    undertemanavn=undertema.navn,
+                    tema_id=tema.id,
+                    obligatorisk=undertema.obligatorisk,
+                    temanavn=tema.navn,
+                    rekkefølge=undertema_nr + 1,
                 )
                 + "\n"
             )
@@ -329,18 +339,30 @@ if __name__ == "__main__":
                     + "\n"
                 )
 
-                sql_script += nytt_spørsmål(spørsmål)
-                sql_script += knytt_spørsmål_til_undertema(
-                    spørsmål=spørsmål, undertema=undertema, rekkefølge=spørsmål_nr + 1
+                sql_script += insert_spørsmål(
+                    spørsmål_id=spørsmål.id,
+                    spørsmål_tekst=spørsmål.tekst,
+                    flervalg=spørsmål.flervalg,
+                )
+                sql_script += insert_spørsmål_undertema_relasjon(
+                    undertema_navn=undertema.navn,
+                    undertema_id=undertema.id,
+                    spørsmål_id=spørsmål.id,
+                    rekkefølge=spørsmål_nr + 1,
                 )
                 sql_script += (
-                    knytt_spørsmål_til_tema(spørsmål=spørsmål, tema=tema) + "\n"
+                    insert_spørsmål_tema_relasjon(
+                        spørsmål_id=spørsmål.id, tema_id=tema.id, tema_navn=tema.navn
+                    )
+                    + "\n"
                 )
                 sql_script += "-- Svaralternativer:" + "\n"
 
                 for svaralternativ in spørsmål.svaralternativer:
-                    sql_script += nytt_svaralternativ(
-                        svaralternativ=svaralternativ, spørsmål=spørsmål
+                    sql_script += insert_svaralternativ(
+                        svaralternativ_tekst=svaralternativ.tekst,
+                        spørsmål_id=spørsmål.id,
+                        svaralternativ_id=svaralternativ.id,
                     )
                 sql_script += "\n"
             sql_script += "\n"

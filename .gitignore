@@ -1,4 +1,3 @@
-/.idea/
 /lydia-api/
 /lydia-radgiver-frontend/
 /fia-arbeidsgiver/
@@ -19,7 +18,16 @@
 /pia-jobbsender/
 /pia-dvh-import/
 
+# Ignore Intellij project-specific directory
+/.idea/
+
+# DS_Store for mac
 .DS_Store
+
+# Ignore VSCode project-specific directory
+.vscode
+
+
 
 # Python env
 python_scripts/.venv/

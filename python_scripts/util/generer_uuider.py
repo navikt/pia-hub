@@ -1,5 +1,6 @@
-from uuid_extensions import uuid7
 from time import sleep
+
+from uuid_extensions import uuid7
 
 
 def generer_uuider(antall: int) -> list[str]:

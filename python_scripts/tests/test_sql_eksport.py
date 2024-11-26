@@ -1,9 +1,10 @@
-from util.sql_eksport import gjør_tema_inaktivt
+from sql.update_tema_status import update_tema_status
+from sql.update_undertema_status import update_undertema_status
 
 
 def test_gjør_tema_inaktivt():
     assert (
-        gjør_tema_inaktivt(1)
+        update_tema_status(1)
         == "-- Gjør tema inaktivt"
         + "\n"
         + "UPDATE ia_sak_kartlegging_tema"
@@ -15,5 +16,15 @@ def test_gjør_tema_inaktivt():
     )
 
 
-def legg_til_ny_funksjon():
-    return 0
+def test_gjør_undertema_inaktivt():
+    assert (
+        update_undertema_status(2)
+        == "-- Gjør undertema inaktivt"
+        + "\n"
+        + "UPDATE ia_sak_kartlegging_undertema"
+        + "\n"
+        + "SET status = 'INAKTIV'"
+        + "\n"
+        + "WHERE undertema_id = 2;"
+        + "\n"
+    )
