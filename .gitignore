@@ -20,3 +20,12 @@
 /pia-dvh-import/
 
 .DS_Store
+
+# Python env
+python_scripts/.venv/
+/python_scripts/db/migration/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

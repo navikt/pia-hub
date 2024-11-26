@@ -1,0 +1,21 @@
+[tool.poetry]
+package-mode = false
+name = "python_scripts"
+version = "0.1.0"
+description = "Scripts til bruk av Team Pia"
+authors = ["Sindre Larsen <sindre.larsen@nav.no>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pytest = "^8.3.3"
+uuid7 = "^0.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-ra -q" # reduserer output så lenge alle tester består
+testpaths = ["python_scripts/tests"]
