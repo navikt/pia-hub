@@ -5,8 +5,12 @@ def update_tema_status(
     tema_id: int,
     status: Literal["AKTIV", "INAKTIV"] = "INAKTIV",
 ):
+    if tema_id <= 0:
+        raise Exception("Et tema sin id må være et positivt tall")
+    if status not in ["AKTIV", "INAKTIV"]:
+        raise ValueError("status must be either 'AKTIV' or 'INAKTIV'")
     return (
-        "-- Gjør tema inaktivt"
+        f"-- Gjør tema {status.lower()}t"
         + "\n"
         + "UPDATE ia_sak_kartlegging_tema"
         + "\n"

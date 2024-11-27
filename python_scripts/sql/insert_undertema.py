@@ -3,9 +3,17 @@ def insert_undertema(
     undertemanavn: str,
     tema_id: int,
     obligatorisk: bool,
-    temanavn: str,
     rekkefølge: int,
+    temanavn: str = "",
 ) -> str:
+    if undertema_id <= 0:
+        raise Exception("Et undertema sin id må være et positivt tall")
+    if undertemanavn == "":
+        raise Exception("Et undertema må ha et navn")
+    if tema_id <= 0:
+        raise Exception("Et tema sin id må være et positivt tall")
+    if rekkefølge <= 0:
+        raise Exception("rekkefølge burde starte fra 1")
     return (
         f"-- Nytt undertema -> '{temanavn}' : '{undertemanavn}'"
         + "\n"
