@@ -81,10 +81,12 @@ Generer migreringsskript for nytt innhold til spørreundersøkelse i [lydia-api]
 python ./python_scripts/legg_til_nye_temaer.py
 ```
 
-### TODO: Migreringsscript for databaseendringer i Fia
+### Nye testdata fra tenor
+Generer SQL scripts som legger til testvirksomheter for lokal kjøring og dev-miljø
 
-
-### TODO: nye testvirksomheter i Fia
+```bash
+python ./python_scripts/testdata_tenor.py
+```
 
 # Henvendelser
 
