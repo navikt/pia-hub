@@ -30,7 +30,7 @@
 
 
 # Python env
-python_scripts/.venv/
+/.venv/
 /python_scripts/db/migration/
 
 # Byte-compiled / optimized / DLL files

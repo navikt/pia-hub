@@ -32,33 +32,58 @@ For å legge til nytt repo i pia-hub bruker man:
 meta project import pia-nytt-repo git@github.com:navikt/pia-nytt-repo.git
 ```
 
-## Python
+# Komme i gang (Poetry)
+## Installasjon
 
-### Opprett virtuelt miljø, og installer poetry:
+Poetry kan installeres via [homebrew](https://formulae.brew.sh/formula/poetry)
 ```bash
-python3.12 -m venv python_scripts/.venv && python_scripts/.venv/bin/pip install -U pip setuptools && python_scripts/.venv/bin/pip install poetry
+brew install poetry
 ```
 
-### Ta i bruk miljø:
+Andre alternativer finnes også i Poetry sin [dokumentasjon](https://python-poetry.org/docs/#installation)
+
+## Opprette virtuelt miljø i prosjektet
+Anbefaler å konfigurere poetry til å lage virtuelt miljø i prosjektmappen så det ikke legges i cache, det gjør man ved å bruke kommandoen:
+
 ```bash
-source python_scripts/.venv/bin/activate
+poetry config virtualenvs.in-project true
 ```
 
-### Installer avhengigheter:
+Deretter kan man opprette virtuelt miljø med kommandoen:
+
 ```bash
 poetry install
 ```
+Denne lager virtuelt miljø basert på `pyproject.toml`-filen i prosjektet.
 
-### Kjør tester
+For å få informasjon om hvilken python versjon som brukes og hvor den ligger (det virtuelle miljøet) kan du skrive: `poetry env info`
+
+## Ta i bruk virtuelt miljø:
+
+
+### Shell
+For å åpne et shell i det virtuelle miljøet bruker du kommandoen:
+
+```bash
+poetry shell
+```
+
+Fra shell i virtuelt miljø kan du f.eks. kjøre tester med:
 ```bash
 pytest
 ```
 
+eller lage notebooks med:
 
-### Deaktiver miljø med: 
 ```bash
-deactivate
+jupyter notebook
 ```
+
+For å komme deg ut av shell for det virtuelle miljøet bruker du:
+```bash
+exit
+```
+
 # Hvordan ta i bruk
 Endel av dette krever et kjørende docker / docker-compose miljø.
 
@@ -74,18 +99,23 @@ Endel av dette krever et kjørende docker / docker-compose miljø.
 ```
 
 ## Python scripts
+### Åpne shell:
+```bash
+poetry shell
+```
+
 ### Nytt innhold i spørreundersøkelse
 Generer migreringsskript for nytt innhold til spørreundersøkelse i [lydia-api](https://github.com/navikt/lydia-api)
 
 ```bash
-python ./python_scripts/legg_til_nye_temaer.py
+python python_scripts/legg_til_nye_temaer.py
 ```
 
 ### Nye testdata fra tenor
 Generer SQL scripts som legger til testvirksomheter for lokal kjøring og dev-miljø
 
 ```bash
-python ./python_scripts/testdata_tenor.py
+python python_scripts/testdata_tenor.py
 ```
 
 # Henvendelser

@@ -1,4 +1,4 @@
-from models.Spørsmål import Spørsmål
+from models.spørreundersøkelse.Spørsmål import Spørsmål
 
 
 class Undertema:

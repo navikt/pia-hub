@@ -1,4 +1,4 @@
-from models.Svaralternativ import Svaralternativ
+from models.spørreundersøkelse.Svaralternativ import Svaralternativ
 from util.generer_uuider import generer_uuid_med_delay
 
 

@@ -1,8 +1,8 @@
 from typing import Literal
 
-from models.Spørsmål import Spørsmål
-from models.Tema import Tema
-from models.Undertema import Undertema
+from models.spørreundersøkelse.Spørsmål import Spørsmål
+from models.spørreundersøkelse.Tema import Tema
+from models.spørreundersøkelse.Undertema import Undertema
 from sql.insert_spørsmål import insert_spørsmål
 from sql.insert_spørsmål_tema_relasjon import insert_spørsmål_tema_relasjon
 from sql.insert_spørsmål_undertema_relasjon import insert_spørsmål_undertema_relasjon

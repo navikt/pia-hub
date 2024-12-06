@@ -1,3 +1,8 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+##### Poetry config
 [tool.poetry]
 package-mode = false
 name = "python_scripts"
@@ -9,12 +14,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 pytest = "^8.3.3"
-uuid7 = "^0.1.0"
+uuid7 = "0.1.0"
 
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 addopts = "-ra -q" # reduserer output så lenge alle tester består

@@ -1,6 +1,6 @@
 from typing import Literal
 
-from models.Undertema import Undertema
+from models.spørreundersøkelse.Undertema import Undertema
 
 
 class Tema:
