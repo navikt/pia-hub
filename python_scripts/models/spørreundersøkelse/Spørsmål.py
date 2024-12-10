@@ -12,10 +12,10 @@ class Spørsmål:
         tekst: str,
         flervalg: bool = False,
         alternativer=[
-            "Helt enig",
+            "Enig",
             "Litt enig",
             "Litt uenig",
-            "Helt uenig",
+            "Uenig",
             "Vet ikke",
         ],
     ):

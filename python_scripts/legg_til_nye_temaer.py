@@ -4,7 +4,6 @@ from models.spørreundersøkelse.Spørsmål import Spørsmål
 from models.spørreundersøkelse.Tema import Tema
 from models.spørreundersøkelse.Undertema import Undertema
 from sql.insert_spørsmål import insert_spørsmål
-from sql.insert_spørsmål_tema_relasjon import insert_spørsmål_tema_relasjon
 from sql.insert_spørsmål_undertema_relasjon import insert_spørsmål_undertema_relasjon
 from sql.insert_svaralternativ import insert_svaralternativ
 from sql.insert_tema import insert_tema
@@ -15,8 +14,8 @@ from sql.update_undertema_status import update_undertema_status
 #### Partssamarbeid ####
 
 
-forrige_tema_id = 15
-undertema_id = 15
+forrige_tema_id = 21
+undertema_id = 32
 
 undertema_id += 1
 utvikle_partssamarbeidet = Undertema(
@@ -302,12 +301,12 @@ if __name__ == "__main__":
     spørreundersøkelse_type: Literal["Behovsvurdering", "Evaluering"] = "Evaluering"
 
     sql_script = ""
-    sql_script += update_tema_status(tema_id=7) + "\n"
-    sql_script += update_undertema_status(undertema_id=7) + "\n"
-    sql_script += update_tema_status(tema_id=8) + "\n"
-    sql_script += update_undertema_status(undertema_id=8) + "\n"
-    sql_script += update_tema_status(tema_id=9) + "\n"
-    sql_script += update_undertema_status(undertema_id=9) + "\n"
+    sql_script += update_tema_status(tema_id=16) + "\n"
+    sql_script += update_undertema_status(tema_id=16) + "\n"
+    sql_script += update_tema_status(tema_id=17) + "\n"
+    sql_script += update_undertema_status(tema_id=17) + "\n"
+    sql_script += update_tema_status(tema_id=18) + "\n"
+    sql_script += update_undertema_status(tema_id=18) + "\n"
 
     for tema_nr, tema in enumerate([partssamarbeid, sykefraværsarbeid, arbeidsmiljø]):
         sql_script += (
@@ -350,12 +349,6 @@ if __name__ == "__main__":
                     spørsmål_id=spørsmål.id,
                     rekkefølge=spørsmål_nr + 1,
                 )
-                sql_script += (
-                    insert_spørsmål_tema_relasjon(
-                        spørsmål_id=spørsmål.id, tema_id=tema.id, tema_navn=tema.navn
-                    )
-                    + "\n"
-                )
                 sql_script += "-- Svaralternativer:" + "\n"
 
                 for svaralternativ in spørsmål.svaralternativer:
@@ -369,7 +362,7 @@ if __name__ == "__main__":
         sql_script += "\n"
 
     with open(
-        "python_scripts/db/migration/V1__nytt_migreringsskript.sql",
+        "python_scripts/V1__nytt_migreringsskript.sql",
         "w",
     ) as text_file:
         text_file.write(sql_script)

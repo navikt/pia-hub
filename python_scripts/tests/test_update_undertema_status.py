@@ -5,27 +5,27 @@ from sql.update_undertema_status import update_undertema_status
 def test_update_undertema_status_inaktiv():
     assert (
         update_undertema_status(2)
-        == "-- Gjør undertema inaktivt"
+        == "-- Gjør undertemaer til temaet 2 inaktivt"
         + "\n"
         + "UPDATE ia_sak_kartlegging_undertema"
         + "\n"
         + "SET status = 'INAKTIV'"
         + "\n"
-        + "WHERE undertema_id = 2;"
+        + "WHERE tema_id = 2;"
         + "\n"
     )
 
 
 def test_update_undertema_status():
     assert (
-        update_undertema_status(2)
-        == "-- Gjør undertema inaktivt"
+        update_undertema_status(2, "INAKTIV")
+        == "-- Gjør undertemaer til temaet 2 inaktivt"
         + "\n"
         + "UPDATE ia_sak_kartlegging_undertema"
         + "\n"
         + "SET status = 'INAKTIV'"
         + "\n"
-        + "WHERE undertema_id = 2;"
+        + "WHERE tema_id = 2;"
         + "\n"
     )
 
@@ -33,13 +33,13 @@ def test_update_undertema_status():
 def test_update_undertema_status_aktiv():
     assert (
         update_undertema_status(2, "AKTIV")
-        == "-- Gjør undertema aktivt"
+        == "-- Gjør undertemaer til temaet 2 aktivt"
         + "\n"
         + "UPDATE ia_sak_kartlegging_undertema"
         + "\n"
         + "SET status = 'AKTIV'"
         + "\n"
-        + "WHERE undertema_id = 2;"
+        + "WHERE tema_id = 2;"
         + "\n"
     )
 
